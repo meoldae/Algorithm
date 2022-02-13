@@ -1,5 +1,4 @@
 import sys
-import numpy as np
 from collections import deque
 
 N, M, K = map(int, input().split())

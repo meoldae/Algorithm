@@ -4,13 +4,12 @@ cnt = 1
 
 while True:
     cnt += 1
-    
     temp = b
-    print(temp)
-    if b%2 == 0:
-        b //= 2
-    elif b%10 == 1:
+    
+    if b%10 == 1:
         b //= 10
+    elif b%2 == 0:
+        b //= 2
     
     if temp == b and a != b:
         print(-1)
@@ -19,5 +18,3 @@ while True:
     if a == b:
         print(cnt)
         break
-    
-    

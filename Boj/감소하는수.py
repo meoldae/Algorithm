@@ -19,5 +19,3 @@ if N >= len(answer):
     print(-1)
 else:
     print(answer[N])
-
-
