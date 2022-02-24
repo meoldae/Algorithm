@@ -1,24 +1,20 @@
 import sys
-from itertools import combinations
-
 input = sys.stdin.readline
 
 n, k = map(int, input().split())
 
-coins = []
+dp = [10001] * (k+1)
+dp[0] = 0
+
+moneys = []
+for i in range(n):
+    moneys.append(int(input()))
+
+moneys.sort()
 
 for i in range(n):
-    coins.append(int(input().rstrip()))
-    
-moneys = []
-
-min_value = n+1
-
-for i in range(1, n+1):
-    temp = list(map(list, combinations(coins, i)))
-    for j in temp:
-        if sum(j) == k and min_value > len(j):
-            print(len(j))
-            break
-else:
-    print(-1)
+    for j in range(moneys[i], k+1):
+        dp[j] = min(dp[j], dp[j-moneys[i]]+1)
+        
+        
+print(dp[-1])
