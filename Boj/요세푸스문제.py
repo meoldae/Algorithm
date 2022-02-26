@@ -14,4 +14,3 @@ while queue:
     count += 1
 
 print("<%s>" %(", ".join(answer)))
-    

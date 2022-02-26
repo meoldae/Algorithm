@@ -8,9 +8,9 @@ if n >= 2:
     zoo[1] = 3
     
     for i in range(2, n):
-        zoo[i] = (zoo[i-1]*2)+zoo[i-2]
+        zoo[i] = ((zoo[i-1]*2)+zoo[i-2])%9901
     
-    print(zoo[-1]%9901)
+    print(zoo[-1])
     
 elif n == 1:
     print(3)

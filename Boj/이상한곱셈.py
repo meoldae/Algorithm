@@ -9,7 +9,3 @@ for i in range(len(b)):
     answer += sum(a)*b[i]
     
 print(answer)
-
-
-
-    

@@ -17,4 +17,7 @@ for i in range(n):
         dp[j] = min(dp[j], dp[j-moneys[i]]+1)
         
         
-print(dp[-1])
+if dp[-1] == 10001:
+    print(-1)
+else:
+    print(dp[-1])

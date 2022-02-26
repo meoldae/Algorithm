@@ -9,8 +9,7 @@ dp[0] = 1
 moneys = []
 for i in range(n):
     moneys.append(int(input()))
-    
-print(moneys)
+
 moneys.sort()
 
 for coin in moneys:
@@ -18,4 +17,3 @@ for coin in moneys:
         dp[i] += dp[i-coin]
         
 print(dp[-1])
-

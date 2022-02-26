@@ -1,4 +1,3 @@
-import numpy as np
 import sys
 from collections import deque
 input = sys.stdin.readline
@@ -36,8 +35,7 @@ while queue:
             visited[nx][ny] = 1
             time = max(day, time)
             queue.append((nx, ny, day+1))
-     
-     
+            
 check = True
            
 for i in range(n):
