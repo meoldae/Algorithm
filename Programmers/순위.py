@@ -1,5 +1,3 @@
-import numpy as np
-
 def solution(n, results):
     answer = 0
     
@@ -7,9 +5,7 @@ def solution(n, results):
     for result in results:
         board[result[0]-1][result[1]-1] = "W"
         board[result[1]-1][result[0]-1] = "F"
-    
-    print(np.array(board))        
-    
+        
     # j k  vs j i + i k
     for i in range(n):
         for j in range(n):
