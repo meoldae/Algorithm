@@ -1,43 +1,35 @@
 import sys
+import heapq
+input = sys.stdin.readline
+INF = int(1e9)
 
-def get_smallest_node():
-    min_value = 100000
-    idx = 0
-    for j in range(n):
-        if distance[i] < min_value and visited[i] == 0:
-            min_value = distance[i]
-            idx = i
-    return idx
-
-n = int(sys.stdin.readline())
-m = int(sys.stdin.readline())
-
-bus = [[] for i in range(n)]
-visited = [0] * (n)
-distance = [100000 for i in range(n)]
+n = int(input())
+m = int(input())
+graph = [[] for i in range(n)]
+visited = [False] * n
+distance = [INF] * n
 
 for i in range(m):
-    a, b, c = map(int, sys.stdin.readline().split())
-    bus[a-1].append((b-1, c))
-
-start, end = map(int, sys.stdin.readline().split())
-start -= 1
-end -= 1
-
-distance[start] = 0
-visited[start] = 1
-
-for i in bus[start]:
-    distance[i[0]] = i[1]
+    start, end, cost = map(int, input().split())    
+    graph[start-1].append((end-1, cost))
     
-for i in range(n-1):
-    now = get_smallest_node()
-    visited[now] = 1
-    
-    for j in bus[now]:
-        cost = distance[now] + j[1]
+
+def dijkstra(start):
+    q = []
+    heapq.heappush(q, (0, start))
+    distance[start] = 0
+    while q:
+        dist, now = heapq.heappop(q)
         
-        if cost < distance[j[0]]:
-            distance[j[0]] = cost
+        if distance[now] < dist:
+            continue
+        
+        for i in graph[now]:
+            total_cost = dist+i[1]
+            if total_cost < distance[i[0]]:
+                distance[i[0]] = total_cost
+                heapq.heappush(q, (total_cost, i[0]))
 
-print(distance[end])
+src, dst = map(int, input().split())
+dijkstra(src-1)
+print(distance[dst-1])
