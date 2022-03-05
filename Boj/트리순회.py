@@ -37,10 +37,6 @@ for i in range(n):
     temp = input().split()
     
     node = Node(temp[0])
-    # if temp[1] == '.':
-    #     temp[1] = ''
-    # if temp[2] == '.':
-    #     temp[2] = ''
     node.left = temp[1]
     node.right = temp[2]
     
