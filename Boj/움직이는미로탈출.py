@@ -1,49 +1,47 @@
-import numpy as np
 from collections import deque
 temp = []
 n = 8 # Range of board
 
+board = []
 for i in range(n):
-    temp.append(list(input()))
-
-board = [[0]*n for _ in range(n)]
-
-# board rotate
-for i in range(n):
-    for j in range(n):
-        board[j][7-i] = temp[i][j]
-
-visited = [[0]*n for _ in range(n)]
-    
+    board.append(list(input()))
+       
 queue = deque()
-queue.append((0, 0))
+queue.append((7, 0))
 
-dx = [0, -1, 1, -1, 1]
-dy = [1, 1, 1, 0, 0]
-# Right, Right_Up, Right_Down, Down, Up
+dx = [0, -1, -1, -1, 0, 0, 1, 1, 1]
+dy = [0, 0, -1, 1, -1, 1, 0, -1, 1]
+# Stop, Up, Left_Up, Right_Up, Left, Right
 
-print(np.array(board))
-while queue:
-    x, y = queue.popleft()
-    if x == n-1 and y == n-1:
-        print(1)
-        break
-    
-    for i in range(5):
-        nx = x + dx[i]
-        ny = y + dy[i]
-    
-        if nx < 0 or nx >= n or ny < 0 or ny >= n:
-            continue
+
+def bfs():
+    while queue:
+        # del visited[-1]
+        # visited.insert(0, [0 for _ in range(n)])
         
-        elif board[nx][ny] == '.' and visited[nx][ny] == 0:
-            if ny < 7:
-                if board[nx][ny+1] == '.':
-                    visited[nx][ny] = 1
-                    queue.append((nx, ny))
-            else:
+        visited = [[0]*n for _ in range(n)]
+        for i in range(len(queue)):
+            x, y = queue.popleft()
+            if x == 0:
                 print(1)
-                break
-
-else:
-    print(0)
+                return
+            
+            for i in range(9):
+                nx = x + dx[i]
+                ny = y + dy[i]
+            
+                if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                    continue
+                
+                if board[nx][ny] == '.' and visited[nx][ny] == 0 and board[nx-1][ny] != '#':
+                    queue.append((nx, ny))
+                    visited[nx][ny] = 1
+        
+        # 1 Level Down
+        del board[-1]
+        board.insert(0, ['.' for _ in range(n)])
+    
+    else:
+        print(0)
+        return
+bfs()
