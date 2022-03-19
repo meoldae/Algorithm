@@ -19,22 +19,24 @@ direction_change = dict()
 for i in range(L):
     t, direction = input().split()
     if direction == 'D':
-        direction_change[int(t)] = 1
+        direction_change[int(t)] = 1 
     else:
         direction_change[int(t)] = -1
 
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
 # 1:Right  2:Down  3:Left  4:Up
 # R:+  L:-
-d = 0
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
+
 # First Direction is Right
+d = 0
+
 time = 0
 while True:
     if time in direction_change:
         d += direction_change[time]
-        if d < 0: d = 3
-        elif d > 3: d = 0
+        if d < 0: d = 3     # Current Direction : Left / change L => Up
+        elif d > 3: d = 0   # Current Direction : Up   / Change D => Right
             
     # Head location
     x, y = snake[0]
@@ -48,6 +50,7 @@ while True:
     
     # Head move
     snake.insert(0, (nx, ny))
+    
     # Not in apple in next space, remove tail
     if board[nx][ny] != 1:
         del snake[-1]
