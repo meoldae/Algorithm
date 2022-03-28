@@ -14,7 +14,7 @@ for i in range(n):
         continue
     else:
         tree[parents[i]].append(i)
-
+   
 count = 0
 
 def dfs(root, rm):
@@ -26,10 +26,7 @@ def dfs(root, rm):
     
     temp = list(tree[root])
     for word in temp:
-        if word == rm:
-            count += 1
-        else:
-            dfs(word, rm)
+        dfs(word, rm)
     return
 
 for i in range(len(parents)):
