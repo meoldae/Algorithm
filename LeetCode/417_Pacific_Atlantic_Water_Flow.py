@@ -3,23 +3,27 @@
 # Pacific Atlantic으로 모두 흐를 수 있는 좌표를 구하라?
 from typing import List
 from collections import deque
-def bfs(heights, queue, answer):
-    visited = [[0]*len(heights[0]) for _ in range(len(heights))]
+def bfs(row, col, heights):
+    visited = set()
+    
     dx = [0, 0, 1, -1]
     dy = [1, -1, 0, 0]
         
     pacific = False
     atlantic = False
-        
+    
+    queue = deque()
+    queue.append([row, col])
+    visited.add((row, col))
+    
     while queue:
         x, y = queue.popleft()
-        visited[x][y] = 1
-            
+                                  
         for i in range(4):
 
             nx = x+dx[i]
             ny = y+dy[i]
-
+        
             if nx < 0 or ny < 0:
                 pacific = True
 
@@ -35,11 +39,13 @@ def bfs(heights, queue, answer):
                 if (pacific is True) and (atlantic is True):
                     queue.clear()
                     return True
+                
                 else:
                     continue
 
-            if visited[nx][ny] == 0 and (heights[x][y] >= heights[nx][ny]):
+            if (nx, ny) not in visited and heights[x][y] >= heights[nx][ny]:
                 queue.append([nx, ny])
+                visited.add((nx, ny))
 
     else:
         queue.clear()
@@ -48,11 +54,9 @@ def bfs(heights, queue, answer):
 class Solution:        
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
         answer = []
-        queue = deque()
         for row in range(len(heights)):
             for col in range(len(heights[row])):
-                queue.append([row, col])
-                check = bfs(heights, queue, answer)
+                check = bfs(row, col, heights)
                 if check:
                     answer.append([row, col])
         return answer
