@@ -8,9 +8,10 @@ v, e = map(int, input().split())
 
 # Cruscal Algorythm (Union Find)
 # Parents 
-p = [i for i in range(v)]
+p = [i+1 for i in range(v)]
 
-def find(x):
+def find(x):   
+    
     if x == p[x]:
         return x;
     else:
