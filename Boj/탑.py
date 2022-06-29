@@ -16,12 +16,9 @@ for i in range(n):
                 stack.pop()
                 if len(stack) == 0:
                     answer.append(0)
-            elif stack[-1][0] > towers[i]:
-                answer.append(stack[-1][1]+1)
-                break
             else:
                 answer.append(stack[-1][1]+1)
-                stack.pop()
                 break
         stack.append([towers[i], i])        
-print(answer)
+for num in answer:
+    print(num, end=" ")
