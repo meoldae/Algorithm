@@ -2,6 +2,7 @@
 import sys
 from collections import defaultdict
 input = sys.stdin.readline
+sys.setrecursionlimit(1000000)
 global answer
 answer = dict()
 
