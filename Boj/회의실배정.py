@@ -3,13 +3,21 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-meeting = []
+meetings = []
 for _ in range(n):
     temp = list(map(int, input().split()))
     
-    meeting.append(temp)
+    meetings.append(temp)
     
-meeting.sort(key= lambda x : (x[0], (x[1]-x[0])))
+meetings.sort(key= lambda x : (x[1], x[0]))
 
-print(meeting)
-    
+count = 1
+time = meetings[0][1]
+meetings = meetings[1::]
+
+for meet in meetings:
+    if meet[0] >= time:
+          count += 1
+          time = meet[1]  
+
+print(count)
