@@ -14,8 +14,6 @@ for i in range(e):
     start, end, cost = map(int, input().split())
     graph[start-1].append((end-1, cost))
 
-
-
 def dijkstra(start):
     q = []
     heapq.heappush(q,(0, start))
@@ -31,7 +29,6 @@ def dijkstra(start):
             if total_cost < distance[i[0]]:
                 distance[i[0]] = total_cost
                 heapq.heappush(q, (total_cost, i[0]))
-        
 
 dijkstra(k)            
 for i in distance:
