@@ -12,4 +12,4 @@ for i in range(1, n):
         if a[i] > a[j]:
             answer[i] = max(answer[i], answer[j]+1)
 
-print(answer)
+print(max(answer))
