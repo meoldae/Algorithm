@@ -12,19 +12,27 @@ for _ in range(t):
     if n != 0:
         temp = input().rstrip()[1:-1].split(',')
     else:
-        input()
+        x = input()
         temp = []        
     lst = deque(temp)
-
+    
+    r_cnt = 0
+    flag = True
     for c in command:
         if c == 'R':
-            lst.reverse()
-        
+            r_cnt += 1        
         elif c == 'D':
             if len(lst) == 0:
                 print('error')
+                flag = False
                 break
             else:
-                lst.popleft()
-    if len(lst) != 0:
-        print(list(map(int, lst)))
+                if r_cnt % 2 == 0:
+                    lst.popleft()
+                else:
+                    lst.pop()
+                    
+    if flag:
+        if r_cnt % 2 != 0:
+            lst.reverse()
+        print("["+",".join(lst)+"]")
