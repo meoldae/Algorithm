@@ -7,7 +7,7 @@ n = int(input())
 num = 1
 answer = 0
 
-while n > 0:
+while True:
     n -= num
     
     if n >= 0:
@@ -15,3 +15,4 @@ while n > 0:
         num += 1
     else:
         print(answer)
+        break
