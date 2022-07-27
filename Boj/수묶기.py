@@ -1,33 +1,34 @@
 #Baekjoon 1744
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-nums = []
-
-for _ in range(n):
-    nums.append(int(input()))
-    
-queue = deque()
-queue.extend(sorted(nums, reverse=True))
+pos = []
+neg = []
 
 answer = 0
-while queue:    
-    if len(queue) >= 2: 
-        if queue[1] > 0:
-            if queue[0] == queue[1] == 1:
-                answer += queue.popleft()+queue.popleft()
-            else:
-                answer += (queue.popleft()*queue.popleft())
-        elif queue[1] == 0:
-            answer += queue.popleft()
-        else:
-            if queue[0] == 0:
-                answer += (queue.popleft()*queue.popleft())
-            else:
-                answer += (queue.popleft()+queue.popleft())
+for _ in range(n):
+    temp = int(input())
+    if temp == 1:
+        answer += 1
+    elif temp > 0:
+        pos.append(temp)
     else:
-        answer += queue.popleft()
+        neg.append(temp)
     
+pos.sort()
+neg.sort(reverse=True)
+
+while pos:
+    if len(pos) == 1:
+        answer += pos.pop()
+    else:
+        answer += pos.pop()*pos.pop()
+
+while neg:
+    if len(neg) == 1:
+        answer += neg.pop()
+    else:
+        answer += neg.pop()*neg.pop()
+
 print(answer)
