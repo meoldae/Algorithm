@@ -1,5 +1,6 @@
 #Baekjoon 1717
 import sys
+sys.setrecursionlimit(100000)
 input = sys.stdin.readline
 
 def find(x):

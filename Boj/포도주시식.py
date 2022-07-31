@@ -9,6 +9,7 @@ for _ in range(n):
     
 dp = [0]*(n+1)
 dp[0] = glasses[0]
+
 if n > 1:
     dp[1] = glasses[0]+glasses[1]
 
