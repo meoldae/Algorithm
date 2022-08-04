@@ -2,10 +2,7 @@
 import sys
 input = sys.stdin.readline
 
-s = dict()
-all_s = dict()
-for i in range(1, 21):
-    all_s[i] = 1
+s = [0 for _ in range(21)]
 m = int(input())
 
 for _ in range(m):
@@ -15,22 +12,22 @@ for _ in range(m):
         s[int(operation[1])] = 1
         
     elif operation[0] == 'remove':
-        s.pop(int(operation[1]))
+        s[int(operation[1])] = 0
     
     elif operation[0] == 'check':
-        if int(operation[1]) in s:
+        if s[int(operation[1])] == 1:
             print(1)
         else:
             print(0)
-    
+  
     elif operation[0] == 'toggle':
-        if int(operation[1]) in s:
-            s.pop(int(operation[1]))
+        if s[int(operation[1])] == 1:
+            s[int(operation[1])] = 0
         else:
             s[int(operation[1])] = 1
-    
+        
     elif operation[0] == 'all':
-        s = all_s
+        s = [1 for _ in range(21)]
     
-    elif operation[0] == 'open':
-        s = dict()
+    elif operation[0] == 'empty':
+        s = [0 for _ in range(21)]
