@@ -8,7 +8,7 @@ def solution(m, n, x, y):
     while k <= m*n:
         # if k%m == x:
         #     return k
-        # 해당 식은 왜 안되는지 ... 이해불가...
+        # k == m 일 경우 나머지가 0인 경우를 처리하지 못함
         
         if (k-x)%m == 0:
             return k
