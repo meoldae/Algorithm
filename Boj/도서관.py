@@ -1,6 +1,5 @@
 #Baekjoon 1461
 import sys
-from turtle import pos
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
