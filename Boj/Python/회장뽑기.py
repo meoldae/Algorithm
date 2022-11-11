@@ -1,6 +1,5 @@
 #Baekjoon 2660
 import sys
-from collections import defaultdict
 input = sys.stdin.readline
 
 if __name__ == '__main__':
@@ -18,5 +17,18 @@ if __name__ == '__main__':
     for i in range(n):
         for j in range(n):
             for k in range(n):
-                
-                # j k = j i + i k  
+                if j == k:
+                    relation[j][k] = 0
+                    continue
+                else:
+                    if relation[j][k] > relation[j][i] + relation[i][k]:
+                        relation[j][k] = relation[j][i] + relation[i][k]
+
+    answer = []
+    for s in relation:
+        answer.append(max(s))
+    
+    print(min(answer), answer.count(min(answer)))
+    for idx in range(n):
+        if answer[idx] == min(answer):
+            print(idx+1, end=" ")
