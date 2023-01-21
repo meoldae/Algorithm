@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Main {
+public class B2615 {
 	final static int BOARD_SIZE = 19;
 	static int[][] board;
 
