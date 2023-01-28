@@ -2,4 +2,6 @@
 .fleet/
 *.iml
 .out/
+*.out/
 .bin/
+*/out
