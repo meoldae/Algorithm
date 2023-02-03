@@ -3,22 +3,42 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class B11444 {
-    static int[] fibo;
+    final static long MOD = 1000000007;
+
+    // 연립 방정식 이용...
+    // 참고 https://st-lab.tistory.com/252
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int mod = 1000000007;
         long n = Long.parseLong(br.readLine());
-        // 파사노 주기
-        // Mod = 10^k 일 때, k > 2 이면 주기는 항상 15 * 10^k-1
-        long p = (long) (15 * Math.pow(10, 5));
-        fibo = new int[(int) p];
-        fibo[0] = 0;
-        fibo[1] = 1;
 
-        for (int i = 2; i < fibo.length; i++){
-            fibo[i] = (fibo[i-1] + fibo[i-2]) % mod;
+        long[][] A = {{1, 1}, {1, 0}};
+        System.out.println(dfs(A, n-1)[0][0]);
+    }
+
+    static long[][] dfs(long[][] matrix, long exp) {
+        if (exp == 1 || exp == 0 ){
+            return matrix;
         }
-        System.out.println(fibo[((int)(n%p))]);
+        long[][] result = dfs(matrix, exp/2);
+
+        result = matrixPow(result, result);
+
+        if (exp % 2 != 0){
+            result = matrixPow(result, new long[][]{{1, 1}, {1, 0}});
+        }
+        return result;
+    }
+
+    private static long[][] matrixPow(long[][] r1, long[][] r2) {
+        long[][] ret = new long[2][2];
+        for (int i = 0; i < 2; i++){
+            for (int j = 0; j < 2; j++){
+                for(int k = 0; k < 2; k++){
+                    ret[j][k] += r1[j][i] * r2[i][k];
+                    ret[j][k] %= MOD;
+                }
+            }
+        }
+        return ret;
     }
 }
-
