@@ -4,7 +4,7 @@ public class B15651 {
     static int[] answer;
     static int m, n;
     static BufferedWriter bw;
-
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -13,7 +13,6 @@ public class B15651 {
         n = Integer.parseInt(input[0]);
         m = Integer.parseInt(input[1]);
 
-        answer = new int[n];
         dfs(0);
         bw.flush();
         bw.close();
@@ -21,16 +20,13 @@ public class B15651 {
 
     static void dfs(int l) throws IOException {
         if (l == m) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < m; i++) {
-                sb.append(answer[i]).append(" ");
-            }
-            bw.write(sb+"\n");
-        } else {
-            for (int i = 1; i <= n; i++) {
-                answer[l] = i;
-                dfs(l + 1);
-            }
+            bw.write(sb.toString() + "\n");
+            return;
+        }
+        for (int i = 1; i <= n; i++) {
+            sb.append(i).append(" ");
+            dfs(l + 1);
+            sb.delete(sb.length()-2, sb.length());
         }
     }
 }
