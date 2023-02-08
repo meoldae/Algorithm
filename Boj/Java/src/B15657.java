@@ -1,13 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class B15657 {
     static int n, m;
     static int[] nums;
+    static int[] answer;
     static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
@@ -16,23 +15,25 @@ public class B15657 {
         n = Integer.parseInt(input[0]);
         m = Integer.parseInt(input[1]);
         nums = new int[n];
+        answer = new int[m];
         input = br.readLine().split(" ");
         for (int i = 0; i < n; i++) {
             nums[i] = Integer.parseInt(input[i]);
         }
         Arrays.sort(nums);
         backTrack(0, 0);
+        System.out.println(sb.toString());
     }
 
     static void backTrack(int start, int idx) {
         if (idx >= m) {
-            System.out.println(sb.toString());
+            for (int i = 0; i < m; i++) sb.append(answer[i]).append(" ");
+            sb.append("\n");
             return;
         }
         for (int i = start; i < n; i++) {
-            sb.append(nums[i]).append(" ");
+            answer[idx] = nums[i];
             backTrack(i, idx + 1);
-            sb.delete(sb.length() - String.valueOf(nums[i]).length() - 1, sb.length());
         }
     }
 }
