@@ -17,42 +17,33 @@ public class Anime2_C_주문은_토기입니까 {
                 .toArray();
 
         boolean flag = true;
-        int successed = 0;
+        int success = 0;
         int time = 0;
         int cup = 0;
         int coffee = 0;
-        while (time <= customer[customer.length-1]){
-            if (time == customer[successed]){
-                if (coffee > 0){
-                    System.out.println("커피 배달");
-                    successed++;
+
+        while (success < n && time <= customer[n-1]) {
+            if (time == customer[success]) {
+                if (coffee > 0) {
                     coffee--;
-                    time++;
-                    continue;
+                    success++;
                 } else {
-                    System.out.println("손님 화냄.. Break");
                     flag = false;
                     break;
                 }
-            }
-            if (customer[successed] - time <= m) {
+            } else if (time >= customer[success] - m) {
                 if (cup > 0){
-                    System.out.println("커피 생성");
-                    cup--;
                     coffee++;
-                    time++;
-                    continue;
-                }else{
-                    System.out.println("컵 생성");
+                    cup--;
+                } else {
                     cup++;
                 }
-            }else{
-                System.out.println("컵 생성");
+            } else {
                 cup++;
             }
             time++;
         }
-        if (flag) System.out.print("success");
+        if (flag) System.out.println("success");
         else System.out.println("fail");
     }
 }
