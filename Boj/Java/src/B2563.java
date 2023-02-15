@@ -13,7 +13,7 @@ public class B2563 {
             int y = Integer.parseInt(st.nextToken());
             int x = Integer.parseInt(st.nextToken());
             for (int r = 0; r < 10; r++){
-                for (int c = 0; c < 10; c++) {
+                for (int c = 0; c < 10; c++) { 
                     board[r+x][c+y] = 1;
                 }
             }
