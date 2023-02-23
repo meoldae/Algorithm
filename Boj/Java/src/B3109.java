@@ -8,6 +8,7 @@ public class B3109 {
     static int R, C;
     static int[] dx = {-1, 0, 1};
     static int count;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -17,7 +18,7 @@ public class B3109 {
         for (int i = 0; i < R; i++) {
             board[i] = br.readLine().toCharArray();
         }
-        for (int i = 0; i < R; i++){
+        for (int i = 0; i < R; i++) {
             pipeLine(i, 0);
         }
         System.out.println(count);
@@ -31,12 +32,9 @@ public class B3109 {
         for (int d = 0; d < 3; d++) {
             int nx = x + dx[d];
             int ny = y + 1;
-            if (0 <= nx && nx < R && 0 <= ny && ny < C) {
-                if (board[nx][ny] != (char) 1 && board[nx][ny] != 'x') {
-                    board[nx][ny] = (char) 1;
-                    if (pipeLine(nx, ny)) return true;
-//                    else board[nx][ny] = '.'; 왜 이거 한줄이..? -> 윗방향부터 탐색해서 어차피 갈 필요 없는 곳
-                }
+            if (0 <= nx && nx < R && board[nx][ny] != (char) 1 && board[nx][ny] != 'x') {
+                board[nx][ny] = (char) 1;
+                if (pipeLine(nx, ny)) return true;
             }
         }
         return false;
