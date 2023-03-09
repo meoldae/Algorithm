@@ -15,35 +15,39 @@ public class B2573 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         board = new int[N][M];
-        for (int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             board[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         }
-
         int time = 0;
-        int lump = isLump();
-        while(lump == 0){
+        while (isLump() == 0){
             melt();
             time++;
-            lump = isLump();
         }
-        if (lump > 0) System.out.println(time);
+
+        if (isLump() > 0) System.out.print(time);
         else System.out.print(0);
     }
 
-    static void melt(){
-        for (int i = 0; i < N; i++){
-            for (int j = 0; j < M; j++){
-                if (board[i][j] != 0){
-                    int count = 0;
-                    for (int d = 0; d < 4; d++){
-                        if (0 <= i + dx[d] && i + dx[d] < N && 0 <= j + dy[d] && j + dy[d] < M && board[i + dx[d]][j + dy[d]] == 0){
-                            count++;
-                        }
-                    }
-                    board[i][j] = Math.max(board[i][j] - count, 0);
+    static void melt() {
+        int[][] adjOcean = new int[N][M];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (board[i][j] > 0){
+                    adjOcean[i][j] += isWater(i, j);
                 }
             }
         }
+        for (int i = 0; i < N; i++){
+            for (int j = 0; j < M; j++){
+                board[i][j] = (board[i][j] > adjOcean[i][j]) ? board[i][j] - adjOcean[i][j] : 0;
+            }
+        }
+    }
+
+    private static int isWater(int i, int j) {
+        int res = 0;
+        for (int d = 0; d < 4; d++) if (board[i + dx[d]][j + dy[d]] == 0) res++;
+        return res;
     }
 
     static int isLump(){
