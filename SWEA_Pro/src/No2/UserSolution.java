@@ -1,69 +1,111 @@
 package No2;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 class UserSolution {
-    int H, W = 0;
-    TreeMap<Integer, Character> map;
-    int CURSOR;
-
+    int H, W;
+    Node CURSOR = new Node();
+    Node HEAD = new Node();
+    Node TAIL = new Node();
+    int size = 0;
     void init(int mH, int mW, char mStr[]) {
+        System.out.println("100");
         H = mH;
         W = mW;
-        map = new TreeMap<Integer, Character>();
-        CURSOR = 0;
-        for (int i = 0; i < mStr.length; i++) {
-            if (mStr[i] == '\0') break;
-            map.put(i, mStr[i]);
+        Node now = new Node();
+        HEAD = now;
+        for (char c : mStr) {
+            if (c == '\0') break;
+            size++;
+            Node next = new Node(c);
+            next.prev = now;
+            now.next = next;
+            now = next;
+            TAIL = now;
         }
+        HEAD = HEAD.next;
+
+        now = HEAD;
+        while(true) {
+            System.out.print(now.value);
+            if (now.next == null) break;
+            now = now.next;
+        }
+        System.out.println();
     }
 
     void insert(char mChar) {
         System.out.println("200");
-        Map.Entry<Integer, Character> last = null;
-        Map.Entry<Integer, Character> prev = null;
-        last = map.floorEntry(map.size() - 1);
-        map.put(map.size(), last.getValue());
-        while (last.getKey() < CURSOR) {
-            prev = map.lowerEntry(last.getKey());
-            map.put(last.getKey(), prev.getValue());
-            last = prev;
+        Node input = new Node(mChar);
+        input.prev = CURSOR.prev;
+        input.next = CURSOR.next;
+        CURSOR.prev = input;
+
+        Node now = HEAD;
+        while(true) {
+            System.out.print(now.value);
+            if (now.next == null) break;
+            now = now.next;
         }
-        map.put(last.getKey(), mChar);
-        CURSOR++;
-        /*
-        제일 마지막 입력부터 역순으로
-        Map.size + 1 에 Map.size 원소 put (초과하는 경우 없음)
-        Map.size 부터 CURSOR 까지 업데이트
-        CURSOR 위치에 mChar 삽입( 덮어씌움 )
-        CURSOR + 1 ( 입력 문자 우측에 위치 )
-         */
+        System.out.println();
     }
 
     char moveCursor(int mRow, int mCol) {
         System.out.println("300");
-        int target = (W * (mRow - 1)) + (mCol - 1);
-        if (target >= map.size() || target == (H * W) - 1) {
-            CURSOR = map.size();
-            return '$';
-        } else {
-            CURSOR = target;
-            return map.get(target);
+        int count = W * (mRow - 1) + (mCol - 1) - 1;
+
+        Node now = HEAD;
+        while(true) {
+            System.out.print(now.value);
+            if (now.next == null) break;
+            now = now.next;
         }
+        System.out.println();
+
+        now = HEAD;
+        for (int i = 0; i < count; i++) {
+            if (now.next == null) {
+                now.next = CURSOR;
+                return '$';
+            }
+            now = now.next;
+        }
+        CURSOR.next = now.next;
+        CURSOR.prev = now;
+        return CURSOR.next.value;
     }
 
     int countCharacter(char mChar) {
         System.out.println("400");
-        if (map.size() == CURSOR || CURSOR == (H * W) - 1) return 0;
-        int count = 0;
 
-        Map.Entry<Integer, Character> entry = map.ceilingEntry(CURSOR);
-        if (entry == null) return 0;
-        while(entry.getKey() < map.size() - 1) {
-            if (entry.getValue() == mChar) count++;
-            entry = map.higherEntry(entry.getKey());
+        Node now = HEAD;
+        while(true) {
+            System.out.print(now.value);
+            if (now.next == null) break;
+            now = now.next;
+        }
+        System.out.println();
+
+        now = CURSOR;
+        int count = 0;
+        while (true) {
+            if (now.next == null) break;
+            if (mChar == now.next.value) count++;
+            now = now.next;
         }
         return count;
+    }
+}
+class Node {
+    char value;
+    Node prev;
+    Node next;
+
+    public Node(char value) {
+        this.value = value;
+        this.prev = null;
+        this.next = null;
+    }
+
+    public Node() {
+
     }
 }
