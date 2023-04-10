@@ -1,2 +1,2 @@
-# Algorithm
-At least One Solve A Day
+# At least One Solve A Day
+### Java, Python
