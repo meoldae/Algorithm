@@ -1,2 +1,5 @@
-package DataStructure;public class DS_test {
+package DataStructure;
+
+public class DS_test {
+
 }

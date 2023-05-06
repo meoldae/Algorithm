@@ -1,9 +1,35 @@
 package DataStructure;
 
-import java.util.LinkedList;
-import java.util.List;
+public class MyLinkedList {
 
-public class LInkedList {
+    static class Node {
+        int value;
+        Node next;
+        Node prev;
+    }
 
-    List<Integer> list = new Linkedist<>();
+    private int SIZE;
+    private Node head;
+    private Node tail;
+
+    public MyLinkedList() {
+        SIZE = 0;
+        head = null;
+        tail = null;
+    }
+
+    public int size(){
+        return this.SIZE;
+    }
+
+    public void add(Node node){
+        if (head == null){
+            this.head = node;
+            this.tail = node;
+        }else {
+            node.prev = this.tail;
+            this.tail.next = node;
+            this.tail = node;
+        }
+    }
 }
