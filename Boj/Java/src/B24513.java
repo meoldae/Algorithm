@@ -31,6 +31,7 @@ public class B24513 {
 
         int[][] visited = new int[N][M];
 
+        int[] count = new int[4];
         while (!viruses.isEmpty()) {
             int[] virus = viruses.poll();
 
@@ -38,7 +39,10 @@ public class B24513 {
             int y = virus[1];
             int type = virus[2];
 
-            if (village[x][y] == 3) continue;
+            if (village[x][y] == 3) {
+                count[3]++;
+                continue;
+            }
 
             for (int d = 0; d < 4; d++) {
                 int nx = x + dx[d];
@@ -57,13 +61,7 @@ public class B24513 {
                     }
                 }
             }
-        }
-
-        int[] count = new int[4];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if (village[i][j] != -1) count[village[i][j]]++;
-            }
+            count[type]++;
         }
         System.out.print(count[1] + " " + count[2] + " " + count[3]);
     }
