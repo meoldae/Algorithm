@@ -15,28 +15,36 @@ public class B2406 {
         p = new int[n + 1];
         for (int i = 1; i <= n; i++) p[i] = i;
 
+        int connection = 0;
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            if (!isSameParent(x, y)) union(x, y);
+            if (!isSameParent(x, y)) {
+                union(x, y);
+                connection++;
+            }
+        }
+        int[][] graph = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                graph[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
 
         Queue<int[]> pq = new PriorityQueue<>((o1, o2) -> o1[2] - o2[2]);
-        for (int i = 1; i <= n; i++) {
-            st = new StringTokenizer(br.readLine());
-            if (i == 1) continue;
-            for (int j = 1; j <= n; j++) {
-                int network = Integer.parseInt(st.nextToken());
-                if (i == j || j == 1) continue;
-                pq.offer(new int[]{i, j, network});
+        for (int i = 2; i <= n; i++) {
+            for (int j = i + 1; j <= n; j++) {
+                if (i == j || j == 1 || isSameParent(i, j)) continue;
+                pq.offer(new int[]{i, j, graph[i - 1][j - 1]});
             }
         }
 
         StringBuilder sb = new StringBuilder();
         int answer = 0;
         int count = 0;
-        while (!pq.isEmpty()) {
+        while (!pq.isEmpty() && connection < n - 2) {
             int[] relation = pq.poll();
             if (isSameParent(relation[0], relation[1])) continue;
             answer += relation[2];
