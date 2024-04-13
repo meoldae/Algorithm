@@ -29,6 +29,8 @@ public class B1189 {
     }
 
     public static void dfs(int x, int y, int d) {
+        if (d > K) return;
+
         if (x == 0 && y == C - 1 && d == K) {
             answer++;
             return;
